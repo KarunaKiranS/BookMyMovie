@@ -1,0 +1,13 @@
+.login-form{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    padding: 5% 20% 10%;
+
+}
+.login-form Button{
+    width:fit-content;
+    margin-top: 50px;
+    margin-left: 60px;
+}

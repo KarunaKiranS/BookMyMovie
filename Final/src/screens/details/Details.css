@@ -1,0 +1,20 @@
+.back{
+    margin: 8px 24px 0px;
+    height: 24px;
+    cursor: pointer;
+}
+.detailsGrid{
+    display: flex;
+}
+.leftPart{
+    width: 20%;
+    margin: 16px;
+}
+.middlePart{
+    width: 60%;
+    margin: 16px;
+}
+.rightPart{
+    width: 20%;
+    margin: 16px;
+}

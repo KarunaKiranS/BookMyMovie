@@ -1,0 +1,25 @@
+.register-form{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    padding: 5% 15% 10%;
+
+}
+.register-form Button{
+    width:fit-content;
+    margin-top: 10px;
+    margin-left: 55px;
+}
+.register-form h6{
+    padding-bottom: 0;
+}
+.dispNone {
+    display: none;
+}
+.dispBlock {
+    display: block;
+}
+.red {
+    color: red;
+}

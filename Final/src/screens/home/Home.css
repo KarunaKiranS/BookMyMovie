@@ -1,0 +1,25 @@
+.homeHeading{
+    background-color: #ff9999;
+    padding: 8px;
+    text-align: center;
+    font-size: 1rem;
+    height: fit-content;
+}
+.gridDiv{
+    display: flex;
+}
+.releasedMovieSection{
+    display: flex;
+}
+.releasedMovie{
+    width: 76% ;
+    height: fit-content;
+    margin: 16px;
+}
+.filter{
+    display: flex;
+    justify-content: center;
+    width: 24%;
+    margin: 16px;
+    height: fit-content;
+}
