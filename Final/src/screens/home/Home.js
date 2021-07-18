@@ -35,6 +35,7 @@ const MenuProps = {
 
 export default function Home(props){
 
+    const [filterButton,setFilterButton] = useState(false);
     const [filteredMovieGenres,setFilteredMovieGenres] = useState([]);
     const [movieGenres,setMovieGenres] = useState([]);
     const [filteredMovieArtists,setFilteredMovieArtists] = useState([]);
@@ -112,14 +113,6 @@ export default function Home(props){
         await getArtistDetails();
     }
 
-    function applyFilter(){
-        alert(" Movie Name: "+filteredMovies.movieName+
-              "\n Movie Genre: "+filteredMovieGenres+
-              "\n Movie Artists: "+filteredMovieArtists+
-              "\n Release Start Date: "+filteredMovies.releaseDateStart+
-              "\n Release End Date: "+filteredMovies.releaseDateEnd)
-    }
-
     const {movieName,releaseDateStart,releaseDateEnd} = filteredMovies;
 
     return <div onLoad={getDetails}>
@@ -142,10 +135,22 @@ export default function Home(props){
         <div className='releasedMovieSection'>
             <div className='releasedMovie'>
                 <GridList cols={4}>
-                    {movies.filter(mv => mv.status === "RELEASED")
+                    {movies.filter(mv => {
+                        if(!filterButton) return mv.status === "RELEASED"
+                        else return (mv.status === "RELEASED" &&
+                            (((mv.title.toLowerCase() === filteredMovies.movieName.toLowerCase())) ||
+                            (new Date(mv.release_date) >= new Date(filteredMovies.releaseDateStart)
+                                 && new Date(mv.release_date) <= new Date(filteredMovies.releaseDateEnd)) ||
+                            (mv.genres.every(val => filteredMovieGenres.includes(val))) ||
+                                ((mv.artists.map(mvv => mvv["first_name"]+" "+mvv["last_name"]))
+                                    .every(val => filteredMovieArtists.includes(val)))
+                             ))
+
+                    })
                         .map(movie => (
                         <GridListTile key={movie.id} style={{height:'350px',cursor: 'pointerTypography'}}>
-                        <Link to={"/movie/"+movie.id}><img src={movie.poster_url} alt="image" style={{minWidth:'100%',minHeight:'100%',maxWidth:'100%',maxHeight:'100%'}}/></Link>
+                        <Link to={"/movie/"+movie.id}><img src={movie.poster_url} alt="image"
+                                                           style={{minWidth:'100%',minHeight:'100%',maxWidth:'100%',maxHeight:'100%'}}/></Link>
                         <GridListTileBar title={movie.title} subtitle={"Release Date "+new Date(movie.release_date).toDateString()}/>
                         </GridListTile>
                     ))}
@@ -216,7 +221,7 @@ export default function Home(props){
                             />
                         </FormControl> <br/>
                             <CardActions >
-                                <Button variant="contained" color="primary" name="apply" type="submit" onClick={applyFilter} style={{minWidth:185}}> APPLY </Button>
+                                <Button variant="contained" color="primary" name="apply" type="submit" onClick={() => setFilterButton(true)} style={{minWidth:185}}> APPLY </Button>
                             </CardActions>
                     </CardContent>
                 </Card>
